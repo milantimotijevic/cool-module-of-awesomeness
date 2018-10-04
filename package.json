@@ -1,0 +1,14 @@
+{
+  "name": "cool-module-of-awesomeness",
+  "version": "1.0.0",
+  "description": "Simplifies token-based authentication process for express-based apps",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Milan Timotijevic",
+  "license": "ISC",
+  "dependencies": {
+    "randomstring": "^1.1.5"
+  }
+}
