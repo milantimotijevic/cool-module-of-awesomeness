@@ -36,7 +36,7 @@ methods.setup = function(tokenDurationInMinutes, mongoose, app, UserModel) {
             }
             const token = result.toJSON().token;
             res.set('token', token);
-            res.send({message: 'Login successful', token: result.token});
+            res.send({message: 'Login successful', token: token});
         });
     });
 };
