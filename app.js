@@ -1,22 +1,12 @@
 const methods = {};
 const self = this;
 
+const util = require('./util');
 const randomString = require('randomstring');
 
-methods.setup = function(tokenDurationInMinutes, mongoose, app) {
+methods.setup = function(tokenDurationInMinutes, mongoose, app, UserModel) {
     self.tokenDurationInMinutes = tokenDurationInMinutes;
-    const Schema = mongoose.Schema;
-    const userSchema = new Schema({
-        email: {
-            type: String,
-            required: true,
-            unique: true
-        },
-        password: String,
-        token: String,
-        tokenExpiration: Date
-    });
-    self.User = mongoose.model('User', userSchema);
+    self.User = util.prepUserModel(mongoose, UserModel);
 
     app.post('/register', function(req, res, next) {
         const user = req.body;
@@ -44,7 +34,8 @@ methods.setup = function(tokenDurationInMinutes, mongoose, app) {
             if(!result) {
                 return res.status(400).send({message: 'Error logging in. Invalid credentials'});
             }
-            res.set('token', result.token);
+            const token = result.toJSON().token;
+            res.set('token', token);
             res.send({message: 'Login successful', token: result.token});
         });
     });
