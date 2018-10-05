@@ -25,7 +25,7 @@ module.exports = function(app, sessionDurationInMinutes, User) {
         User.findOneAndUpdate({username: req.body.username, password: req.body.password}, {$set: {sessionid: sessionid, sessionExpiration: sessionExpiration}, }, {new: true}, function(err, result) {
             if(err) next(err);
             if(!result) {
-                return res.status(400).send({message: 'Error logging in. Invalid credentials'});
+                return res.status(400).send({message: 'Error logging in. Invalid/missing credentials'});
             }
             const sessionid = result.toJSON().sessionid;
             res.set('sessionid', sessionid);
