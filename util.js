@@ -1,8 +1,9 @@
 methods = {};
 
-methods.prepUserModel = function(mongoose, UserModel) {
-    if(UserModel) {
-        UserModel.schema.add({
+methods.prepUserModel = function(mongoose, userModelName) {
+    const User = mongoose.model(userModelName);
+    if(User) {
+        User.schema.add({
             email: {
                 type: String,
                 required: true,
@@ -12,7 +13,7 @@ methods.prepUserModel = function(mongoose, UserModel) {
             token: String,
             tokenExpiration: Date
         });
-        return UserModel;
+        return User;
     }
     const Schema = mongoose.Schema;
     const userSchema = new Schema({
